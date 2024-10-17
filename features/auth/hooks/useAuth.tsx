@@ -1,15 +1,20 @@
 import * as yup from "yup";
+import { useRouter } from "next/navigation";
 
 import { IAuth } from "../models/IUser";
+import { UseAccountStore } from "../context/useUserStore";
 
 export function useAuth() {
+  const { login } = UseAccountStore();
+  const router = useRouter();
   const initialValues: IAuth = {
     email: "",
     password: "",
   };
 
-  const handleSubmit = (values: IAuth) => {
-    console.log("HOLAA");
+  const handleSubmit = async (values: IAuth) => {
+    await login(values);
+    router.push("/dashboard");
   };
 
   const validationSchema = yup.object().shape({

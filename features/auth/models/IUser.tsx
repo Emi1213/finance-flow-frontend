@@ -8,3 +8,11 @@ export interface IUser {
   name: string;
   lastname: string;
 }
+
+export interface IUserResponse {
+  id: number;
+  email: string;
+  name: string;
+  lastname: string;
+  password: string;
+}
