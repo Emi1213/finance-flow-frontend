@@ -35,15 +35,15 @@ export default function RootLayout({
       <head />
       <body
         className={clsx(
-          "min-h-screen bg-background font-sans antialiased",
+          "flex h-screen  bg-background w-full font-sans antialiased",
           fontSans.variable,
         )}
       >
-        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          <div className="relative flex flex-col h-screen">
-            <main className=" w-full ">{children}</main>
-          </div>
-        </Providers>
+        <div className="w-full min-h-screen">
+          <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
+            <main className="w-full h-screen">{children}</main>
+          </Providers>
+        </div>
       </body>
     </html>
   );
