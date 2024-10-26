@@ -11,7 +11,7 @@ import {
 import { Pagination } from "@nextui-org/pagination";
 import { Button } from "@nextui-org/button";
 
-import { TableFilters } from "./table-filters";
+import { TableFilters } from "../../../../../shared/components/table-filters";
 
 import { useExpenseView } from "@/features/expenses/hooks/use-expenses-view";
 import { IColumn } from "@/shared/interfaces/IColumn";

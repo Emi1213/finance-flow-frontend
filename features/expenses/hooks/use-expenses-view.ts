@@ -37,7 +37,9 @@ export function useExpenseView() {
 
   const handleDelete = async (id: number) => {
     //await deleteExpense(id);
-    console.log("Deleting expense with id: ", id);
+    const userId: number = id;
+
+    router.push(`${pathname}/delete/${userId}`);
   };
 
   const handleEdit = (id: number) => {
