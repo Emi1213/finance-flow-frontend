@@ -23,8 +23,8 @@ export function Sidebar({ modules }: SidebarProps) {
   };
 
   return (
-    <div className="group flex flex-col gap-4 px-2 py-2 w-60 h-auto bg-gray-100  ">
-      <nav className="grid gap-1 px-2 bg-gray-100">
+    <div className="group flex flex-col gap-4 px-2 py-2 w-60 h-auto  ">
+      <nav className="bg-gray-100 grid gap-1 px-2 ">
         <div className="p-10 w-full flex justify-center">
           <Button className="text-white bg-cyan-900 h-20 w-20" radius="full">
             <FaPlus size={25} />

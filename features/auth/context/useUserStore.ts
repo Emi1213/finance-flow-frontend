@@ -28,8 +28,6 @@ export const UseAccountStore = create<StoreState>(
       login: async (credentials: IAuth) => {
         const user = await UserDatasourceImpl.getInstance().login(credentials);
 
-        console.log(user);
-
         if (!user || !user.id) {
           toast.error("Algo salió mal, por favor intente nuevamente.");
 

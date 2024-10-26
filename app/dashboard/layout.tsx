@@ -13,8 +13,8 @@ const appModules: IModule[] = [
     icon: "FaHome",
   },
   {
-    name: "Transacciones",
-    alias: "transactions",
+    name: "Gastos",
+    alias: "expenses",
     icon: "FaHome",
   },
   {
@@ -32,8 +32,8 @@ const layout: React.FC<LayoutProps> = ({ children }) => {
         <div className=" bg-gray-100 shadow-lg">
           <Sidebar modules={appModules} />
         </div>
-        <div className="">
-          <main className="p-11 h-full ">{children}</main>
+        <div className="w-full">
+          <main className="p-11 h-full w-full ">{children}</main>
         </div>
       </div>
     </div>

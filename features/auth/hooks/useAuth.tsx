@@ -18,8 +18,8 @@ export function useAuth() {
   };
 
   const validationSchema = yup.object().shape({
-    email: yup.string().required("El correo electrónico es reuqerido"),
-    password: yup.string().required("La contrseña es requerida"),
+    email: yup.string().required("El correo electrónico es requerido"),
+    password: yup.string().required("La contraseña es requerida"),
   });
 
   return { initialValues, handleSubmit, validationSchema };
