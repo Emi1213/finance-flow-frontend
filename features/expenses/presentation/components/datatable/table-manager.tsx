@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Table,
   TableHeader,
@@ -28,8 +30,6 @@ export const ExpenseTable = () => {
     pages,
     filterValue,
     setFilterValue,
-    statusFilter,
-    setStatusFilter,
     page,
     setPage,
     handleDelete,
@@ -43,15 +43,8 @@ export const ExpenseTable = () => {
         <div className="w-full">
           <TableFilters
             filterValue={filterValue}
-            setStatusFilter={setStatusFilter}
-            statusFilter={statusFilter}
-            statusOptions={[
-              { uid: "active", name: "Active" },
-              { uid: "paused", name: "Paused" },
-            ]}
             onClear={() => {
               setFilterValue("");
-              setStatusFilter(new Set<string>(["all"]));
               setPage(1);
             }}
             onSearchChange={setFilterValue}

@@ -21,7 +21,7 @@ export const Navbar = () => {
   };
 
   return (
-    <NextUINavbar className="shadow-md" maxWidth="xl" position="sticky">
+    <NextUINavbar className="shadow-md " maxWidth="xl" position="sticky">
       <NavbarContent>
         <Button
           className="rounded-full p-2"

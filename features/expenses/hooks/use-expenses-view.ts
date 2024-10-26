@@ -9,7 +9,6 @@ export function useExpenseView() {
   const pathname = usePathname();
   const { expenses, getAllExpenses } = useExpenseStore();
   const [filterValue, setFilterValue] = useState("");
-  const [statusFilter, setStatusFilter] = useState(new Set<string>(["all"]));
   const [rowsPerPage] = useState(5);
   const [page, setPage] = useState(1);
 
@@ -24,13 +23,10 @@ export function useExpenseView() {
       const matchesSearch = expense.description
         .toLowerCase()
         .includes(filterValue.toLowerCase());
-      const matchesStatus =
-        statusFilter.has(expense.status ? "active" : "paused") ||
-        statusFilter.has("all");
 
-      return matchesSearch && matchesStatus;
+      return matchesSearch;
     });
-  }, [expenses, filterValue, statusFilter]);
+  }, [expenses, filterValue]);
 
   const pages = Math.ceil(filteredExpenses.length / rowsPerPage);
   const items = useMemo(() => {
@@ -57,8 +53,6 @@ export function useExpenseView() {
     pages,
     filterValue,
     setFilterValue,
-    statusFilter,
-    setStatusFilter,
     page,
     setPage,
     handleDelete,

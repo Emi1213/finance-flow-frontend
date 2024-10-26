@@ -3,23 +3,16 @@
 import { Input } from "@nextui-org/input";
 
 import { SearchIcon } from "@/shared/components/icons";
-import { StatusOption } from "@/shared/utils/table-utils";
 
 interface ExpenseFiltersProps {
   filterValue: string;
   onSearchChange: (value: string) => void;
-  statusFilter: Set<string>;
-  setStatusFilter: (keys: Set<string>) => void;
-  statusOptions: StatusOption[];
   onClear: () => void;
 }
 
 export const TableFilters = ({
   filterValue,
   onSearchChange,
-  //   statusFilter,
-  //   setStatusFilter,
-  //   statusOptions,
   onClear,
 }: ExpenseFiltersProps) => {
   return (

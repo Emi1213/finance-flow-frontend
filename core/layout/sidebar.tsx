@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Tooltip } from "@nextui-org/tooltip";
 import { Button } from "@nextui-org/button";
 import { FaPlus } from "react-icons/fa6";
+import clsx from "clsx";
 
 import { IModule } from "@/shared/interfaces/IModule";
 import { cn } from "@/lib/utils";
@@ -23,10 +24,10 @@ export function Sidebar({ modules }: SidebarProps) {
   };
 
   return (
-    <div className="group flex flex-col gap-4 px-2 py-2 w-60 h-auto  ">
-      <nav className="bg-gray-100 grid gap-1 px-2 ">
+    <div className="group flex flex-col gap-4  w-60 h-full">
+      <nav className={clsx("flex flex-col gap-2 px-2 h-full")}>
         <div className="p-10 w-full flex justify-center">
-          <Button className="text-white bg-cyan-900 h-20 w-20" radius="full">
+          <Button className="h-20 w-20 bg-gray-700 text-white" radius="full">
             <FaPlus size={25} />
           </Button>
         </div>
@@ -46,13 +47,13 @@ export function Sidebar({ modules }: SidebarProps) {
                     <Button
                       className={cn(
                         "h-12 w-full justify-start",
-                        pathname.includes(
+                        pathname === "/dashboard" &&
                           module.alias === "dashboard"
-                            ? `/dashboard`
-                            : `/dashboard/${module.alias}`,
-                        ) || selectedModule === module.alias
-                          ? "bg-gray-300 text-black"
-                          : "bg-gray-100 text-black",
+                          ? "bg-gray-700 text-white"
+                          : pathname.includes(`/dashboard/${module.alias}`) ||
+                              selectedModule === module.alias
+                            ? "bg-gray-300 text-black"
+                            : "bg-gray-100 text-black",
                       )}
                     >
                       <div className="h-auto w-6">

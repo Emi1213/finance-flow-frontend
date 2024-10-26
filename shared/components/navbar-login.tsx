@@ -5,13 +5,10 @@ import {
   NavbarBrand,
 } from "@nextui-org/navbar";
 import NextLink from "next/link";
-import { usePathname } from "next/navigation";
 
 import { ThemeSwitch } from "@/shared/components/theme-switch";
 
 export const Navbar = () => {
-  const pathname = usePathname();
-
   return (
     <NextUINavbar maxWidth="xl" position="sticky">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">

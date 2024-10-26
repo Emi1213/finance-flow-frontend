@@ -29,7 +29,7 @@ const layout: React.FC<LayoutProps> = ({ children }) => {
     <div className="flex flex-col h-screen w-full ">
       <Navbar />
       <div className="flex h-screen">
-        <div className=" bg-gray-100 shadow-lg">
+        <div className="  shadow-lg">
           <Sidebar modules={appModules} />
         </div>
         <div className="w-full">
