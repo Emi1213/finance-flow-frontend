@@ -28,8 +28,13 @@ export class IncomeDatasourceImpl implements IncomeDatasource {
   }
 
   getIncomes(userId: string): Promise<IIncome[]> {
-    throw new Error("Method not implemented.");
+    const data = this.httplClient.get<IIncome[]>(
+      API_ROUTES.INCOMES.GET_ALL(userId),
+    );
+
+    return data;
   }
+
   getTotalIncomes(
     userId: string,
     year: string,

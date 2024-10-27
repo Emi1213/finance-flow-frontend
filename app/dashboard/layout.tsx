@@ -1,3 +1,4 @@
+"use client";
 import { Sidebar } from "@/core/layout/sidebar";
 import { Navbar } from "@/core/layout/navbar";
 import { IModule } from "@/shared/interfaces/IModule";

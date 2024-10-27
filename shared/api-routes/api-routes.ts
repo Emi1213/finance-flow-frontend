@@ -14,6 +14,7 @@ export const API_ROUTES = {
     UPDATE_EXPENSE: "/expenses",
   },
   INCOMES: {
+    GET_ALL: (userId: string) => `/incomes/${userId}`,
     GET_INCOMES: (userId: string, year: string, month: string) =>
       `/incomes/${userId}/${year}/${month}`,
     ADD_INCOME: "/incomes",
