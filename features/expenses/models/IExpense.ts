@@ -1,13 +1,21 @@
+import { IExpenseType } from "@/features/expenses-types/models/IExpenseType";
+
 export interface IExpense {
   id: number;
   description: string;
   value: number;
   status: boolean;
-  typeId: number;
+  type: IExpenseType;
   observation: string;
   userId: number;
   date: string;
 }
+
+export interface ICreateExpense extends Omit<IExpense, "id" | "type"> {
+  typeId: number;
+}
+
+export interface IUpdateExpense extends Partial<ICreateExpense> {}
 
 export interface ITotalExpense {
   total: number;

@@ -11,7 +11,7 @@ import {
 import { Pagination } from "@nextui-org/pagination";
 import { Button } from "@nextui-org/button";
 
-import { TableFilters } from "../../../../../shared/components/table-filters";
+import { TableFilters } from "../../../../shared/components/table-filters";
 
 import { useExpenseView } from "@/features/expenses/hooks/use-expenses-view";
 import { IColumn } from "@/shared/interfaces/IColumn";
@@ -21,6 +21,7 @@ const INITIAL_VISIBLE_COLUMNS: IColumn[] = [
   { uid: "description", name: "Description" },
   { uid: "value", name: "Value" },
   { uid: "status", name: "Status" },
+  { uid: "date", name: "Fecha" },
   { uid: "actions", name: "Actions" },
 ];
 
@@ -35,6 +36,7 @@ export const ExpenseTable = () => {
     handleDelete,
     handleEdit,
     handleAdd,
+    handleMonthYearChange,
   } = useExpenseView();
 
   return (
@@ -47,6 +49,7 @@ export const ExpenseTable = () => {
               setFilterValue("");
               setPage(1);
             }}
+            onMonthYearChange={handleMonthYearChange}
             onSearchChange={setFilterValue}
           />
         </div>
@@ -65,12 +68,14 @@ export const ExpenseTable = () => {
               </TableColumn>
             )}
           </TableHeader>
-          <TableBody items={items}>
+          <TableBody emptyContent="No expenses content data" items={items}>
             {(item: IExpense) => (
               <TableRow key={item.id}>
                 <TableCell>{item.description}</TableCell>
                 <TableCell>{item.value}</TableCell>
                 <TableCell>{item.status ? "Pagado" : "Pendiente"}</TableCell>
+
+                <TableCell>{item.date}</TableCell>
                 <TableCell>
                   <div className="flex gap-2">
                     <Button size="sm" onPress={() => handleEdit(item.id)}>

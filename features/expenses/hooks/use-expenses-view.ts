@@ -12,6 +12,9 @@ export function useExpenseView() {
   const [rowsPerPage] = useState(5);
   const [page, setPage] = useState(1);
 
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+
   useEffect(() => {
     const userId = "1";
 
@@ -24,9 +27,13 @@ export function useExpenseView() {
         .toLowerCase()
         .includes(filterValue.toLowerCase());
 
-      return matchesSearch;
+      const expenseDate = new Date(expense.date);
+      const matchesMonth = expenseDate.getMonth() + 1 === selectedMonth;
+      const matchesYear = expenseDate.getFullYear() === selectedYear;
+
+      return matchesSearch && matchesMonth && matchesYear;
     });
-  }, [expenses, filterValue]);
+  }, [expenses, filterValue, selectedMonth, selectedYear]);
 
   const pages = Math.ceil(filteredExpenses.length / rowsPerPage);
   const items = useMemo(() => {
@@ -36,7 +43,6 @@ export function useExpenseView() {
   }, [page, filteredExpenses, rowsPerPage]);
 
   const handleDelete = async (id: number) => {
-    //await deleteExpense(id);
     const userId: number = id;
 
     router.push(`${pathname}/delete/${userId}`);
@@ -50,6 +56,18 @@ export function useExpenseView() {
     router.push(`${pathname}/new`);
   };
 
+  // Funciones para actualizar el mes y año seleccionados
+  const handleMonthYearChange = ({
+    month,
+    year,
+  }: {
+    month: number;
+    year: number;
+  }) => {
+    setSelectedMonth(month);
+    setSelectedYear(year);
+  };
+
   return {
     items,
     pages,
@@ -60,5 +78,6 @@ export function useExpenseView() {
     handleDelete,
     handleEdit,
     handleAdd,
+    handleMonthYearChange, // Exportamos la función para pasarla a `TableFilters`
   };
 }

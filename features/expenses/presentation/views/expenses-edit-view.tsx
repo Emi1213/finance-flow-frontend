@@ -3,7 +3,7 @@
 import { ExpenseTable } from "../components/table-manager";
 import { TableBreadcrumb } from "../components/table-breadcrumb";
 
-export const ExpensesListView = () => {
+export const ExpensesEditView = () => {
   return (
     <div>
       <TableBreadcrumb />

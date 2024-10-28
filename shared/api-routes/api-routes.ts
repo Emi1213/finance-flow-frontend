@@ -9,17 +9,21 @@ export const API_ROUTES = {
     GET_ALL: (userId: string) => `/expenses/${userId}`,
     GET_EXPENSES: (userId: string, year: string, month: string) =>
       `/expenses/${userId}/${year}/${month}`,
-    ADD_EXPENSE: "/expenses",
-    DELETE_EXPENSE: "/expenses",
-    UPDATE_EXPENSE: "/expenses",
+    CREATE: "/expenses",
+    DELETE: (id: number) => `/expenses/${id}`,
+    UPDATE: (id: number) => `/expenses/${id}`,
   },
   INCOMES: {
     GET_ALL: (userId: string) => `/incomes/${userId}`,
     GET_INCOMES: (userId: string, year: string, month: string) =>
       `/incomes/${userId}/${year}/${month}`,
-    ADD_INCOME: "/incomes",
-    DELETE_INCOME: "/incomes",
-    UPDATE_INCOME: "/incomes",
+    CREATE: "/incomes",
+    DELETE: "/incomes",
+    UPDATE: "/incomes",
+  },
+  EXPENSE_TYPES: {
+    GET_ALL: (userId: string) => `/type/expense/${userId}`,
+    CREATE: "/expense-types",
   },
   TOTAL: {
     GET_TOTAL: (userId: string, year: string, month: string) =>

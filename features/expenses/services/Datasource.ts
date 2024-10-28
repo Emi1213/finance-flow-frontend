@@ -1,4 +1,9 @@
-import { IExpense, ITotalExpense } from "../models/IExpense";
+import {
+  ICreateExpense,
+  IExpense,
+  ITotalExpense,
+  IUpdateExpense,
+} from "../models/IExpense";
 
 import { AxiosClient } from "@/core/infraestructure/http/AxiosClient";
 import { HttpHandler } from "@/core/interfaces/HttpHandler";
@@ -11,9 +16,9 @@ interface ExpenseDatasource {
     year: string,
     month: string,
   ): Promise<ITotalExpense>;
-  createExpense(expense: IExpense): Promise<IExpense>;
-  updateExpense(expense: IExpense): Promise<IExpense>;
-  deleteExpense(expenseId: number): Promise<void>;
+  createExpense(expense: ICreateExpense): Promise<IExpense>;
+  updateExpense(id: number, expense: IUpdateExpense): Promise<IExpense>;
+  deleteExpense(expenseId: number): Promise<boolean>;
 }
 
 export class ExpenseDatasourceImpl implements ExpenseDatasource {
@@ -46,15 +51,25 @@ export class ExpenseDatasourceImpl implements ExpenseDatasource {
     return data;
   }
 
-  async createExpense(expense: IExpense): Promise<IExpense> {
-    throw new Error("Method not implemented.");
+  async createExpense(expense: ICreateExpense): Promise<IExpense> {
+    const data = await this.httpClient.post<IExpense>(
+      API_ROUTES.EXPENSES.CREATE,
+      expense,
+    );
+
+    return data;
   }
 
-  async updateExpense(expense: IExpense): Promise<IExpense> {
-    throw new Error("Method not implemented.");
+  async updateExpense(id: number, expense: IUpdateExpense): Promise<IExpense> {
+    const data = await this.httpClient.put<IExpense>(
+      API_ROUTES.EXPENSES.UPDATE(id),
+      expense,
+    );
+
+    return data;
   }
 
-  async deleteExpense(expenseId: number): Promise<void> {
-    throw new Error("Method not implemented.");
+  async deleteExpense(expenseId: number): Promise<boolean> {
+    return await this.httpClient.delete(API_ROUTES.EXPENSES.DELETE(expenseId));
   }
 }
