@@ -17,11 +17,11 @@ export const LoginForm = () => {
       onSubmit={handleSubmit}
     >
       {() => (
-        <Form className="flex flex-col gap-4 justify-center w-full items-center px-12">
+        <Form className="flex flex-col gap-1 justify-center w-full h-full items-center px-12">
           <FMKInput label="Email" name="email" />
           <FMKInput label="Password" name="password" type="password" />
           <Button
-            className="bg-sky-900 text-white p-8 text-base font-semibold mt-2"
+            className="bg-sky-900 text-white p-6 text-base font-semibold mt-2"
             type="submit"
           >
             Iniciar sesión

@@ -22,7 +22,7 @@ export const LoginView = () => {
             <div className="flex justify-center h-1/4 pt-9">
               <h2 className="text-4xl text-center font-bold">Iniciar sesión</h2>
             </div>
-            <div className="flex justify-center items-center h-3/4 pb-16 w-full px-20">
+            <div className="flex justify-center items-center h-3/5 pb-4 w-full px-24">
               <LoginForm />
             </div>
           </div>

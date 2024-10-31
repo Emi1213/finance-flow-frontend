@@ -56,7 +56,6 @@ export function useExpenseView() {
     router.push(`${pathname}/new`);
   };
 
-  // Funciones para actualizar el mes y año seleccionados
   const handleMonthYearChange = ({
     month,
     year,
@@ -78,6 +77,6 @@ export function useExpenseView() {
     handleDelete,
     handleEdit,
     handleAdd,
-    handleMonthYearChange, // Exportamos la función para pasarla a `TableFilters`
+    handleMonthYearChange,
   };
 }

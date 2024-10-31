@@ -8,8 +8,7 @@ import { IExpense } from "../../models/IExpense";
 import { useExpensesForm } from "../../hooks/use-expenses-form";
 import { FMKInput } from "../../../../shared/components/formik/FormikInput";
 import { FMKSwitch } from "../../../../shared/components/formik/FormikSwitch";
-import { FMKSelect } from "../../../../shared/components/formik/FormikSelect";
-import { useExpenseTypeStore } from "../../../expenses-types/context/useExpenseTypeStore";
+import { FMKTextArea } from "../../../../shared/components/formik/FormikTextArea";
 
 export const NewEditForm = ({
   currentExpense,
@@ -23,12 +22,8 @@ export const NewEditForm = ({
     handleCreateCategory,
   } = useExpensesForm(currentExpense);
 
-  const { types } = useExpenseTypeStore();
-
-  console.log("deweee" + types);
-
   return (
-    <div>
+    <div className="m-4">
       <Card>
         <Formik
           enableReinitialize
@@ -38,19 +33,28 @@ export const NewEditForm = ({
         >
           {() => (
             <Form>
-              <FMKInput label="Descripción" name="description" />
-              <FMKInput label="Valor" name="value" type="number" />
-              <FMKInput label="Fecha" name="date" type="date" />
-              <FMKInput label="Observación" name="observation" />
-              <FMKSelect
+              <div className="flex flex-col gap-5 py-12 px-14">
+                <FMKInput label="Descripción" name="description" />
+                <div className="flex gap-10">
+                  <FMKInput label="Valor" name="value" type="number" />
+                  <FMKInput label="Fecha" name="date" type="date" />
+                </div>
+                {/* <FMKSelect
                 label="Tipo"
                 name="type"
                 options={types}
                 onCreateCategory={handleCreateCategory}
-              />
-              <FMKSwitch label="Pagado" name="status" />
+              /> */}
+                <FMKSwitch label="Pagado" name="status" />
+                <FMKTextArea label="Observación" name="observation" />
 
-              <Button type="submit">Guardar</Button>
+                <div className="flex gap-8">
+                  <Button className="w-1/2" type="submit">
+                    Guardar
+                  </Button>
+                  <Button className="w-1/2">Cancelar</Button>
+                </div>
+              </div>
             </Form>
           )}
         </Formik>

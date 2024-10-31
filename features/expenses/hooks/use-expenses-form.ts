@@ -11,8 +11,8 @@ export function useExpensesForm(currentExpense?: IExpense) {
 
   const initialValues = {
     description: currentExpense?.description || "",
-    value: currentExpense?.value || 0,
-    date: currentExpense?.date || new Date().toISOString(),
+    value: currentExpense?.value || "",
+    date: currentExpense?.date || "",
     status: currentExpense?.status || false,
     typeId: currentExpense?.type.id || undefined,
     observation: currentExpense?.observation || "",
@@ -43,7 +43,9 @@ export function useExpensesForm(currentExpense?: IExpense) {
     router.push(pathname.split("/").slice(0, -1).join("/"));
   };
 
-  const handleCreateCategory = async (name: string) => {};
+  const handleCreateCategory = async (name: string) => {
+    
+  };
 
   return {
     initialValues,
