@@ -2,12 +2,12 @@
 
 import { Card, CardBody, CardHeader } from "@nextui-org/card";
 import { useEffect, useState } from "react";
-import { FaArrowDown } from "react-icons/fa6";
+import { FaBalanceScale } from "react-icons/fa";
 
-import { ITotalIncome } from "../../models/IIncome";
-import { IncomeDatasourceImpl } from "../../services/Datasource";
+import { TotalDatasourceImpl } from "../../services/Datasource";
+import { ITotal } from "../../models/ITotal";
 
-export const TotalIncomeCard = ({
+export const TotalCard = ({
   userId,
   year,
   month,
@@ -16,21 +16,20 @@ export const TotalIncomeCard = ({
   year: string;
   month: string;
 }) => {
-  const [totalIncome, setTotalIncome] = useState<ITotalIncome | null>(null);
+  const [total, setTotal] = useState<ITotal | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const fetchTotalIncome = async () => {
+    const fetchTotal = async () => {
       try {
         setLoading(true);
-        const incomes =
-          await IncomeDatasourceImpl.getInstance().getTotalIncomes(
-            userId,
-            year,
-            month,
-          );
+        const total = await TotalDatasourceImpl.getInstance().getTotal(
+          userId,
+          year,
+          month,
+        );
 
-        setTotalIncome(incomes);
+        setTotal(total);
       } catch (error) {
         console.error("Error fetching total incomes", error);
       } finally {
@@ -38,15 +37,15 @@ export const TotalIncomeCard = ({
       }
     };
 
-    fetchTotalIncome();
+    fetchTotal();
   }, [userId, month, year]);
 
   if (loading) {
     return <div>Cargando...</div>;
   }
 
-  if (!totalIncome) {
-    return <div>No income data available</div>;
+  if (!total) {
+    return <div>No total data available</div>;
   }
 
   return (
@@ -54,15 +53,15 @@ export const TotalIncomeCard = ({
       <div className="flex w-full h-full justify-center items-center">
         <div className="w-full h-full pb-6">
           <CardHeader className="pb-0 pt-2 px-8 flex-col items-start w-full">
-            <p className="text-base uppercase font-bold">Ingresos:</p>
-            <p className="font-medium">${totalIncome.total}</p>
+            <p className="text-base uppercase font-bold">Balance:</p>
+            <p className="font-medium">${total.total}</p>
           </CardHeader>
         </div>
         <div className="w-full">
           <CardBody className="w-full">
             <div className="flex justify-center items-center">
-              <div className="flex rounded-full bg-green-600 h-20 w-20 justify-center items-center">
-                <FaArrowDown color="white" size={25} />
+              <div className="flex rounded-full bg-blue-900 h-20 w-20 justify-center items-center">
+                <FaBalanceScale color="white" size={26} />
               </div>
             </div>
           </CardBody>

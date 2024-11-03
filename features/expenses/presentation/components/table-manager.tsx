@@ -26,6 +26,15 @@ const INITIAL_VISIBLE_COLUMNS: IColumn[] = [
 ];
 
 export const ExpenseTable = () => {
+  const formatDate = (date: Date) => {
+    const utcDate = new Date(date);
+
+    utcDate.setMinutes(utcDate.getMinutes() + utcDate.getTimezoneOffset());
+
+    // Formatear con el locale es-ES pero reemplazar las / por -
+    return utcDate.toLocaleDateString("es-ES").replace(/\//g, "-");
+  };
+
   const {
     items,
     pages,
@@ -75,7 +84,7 @@ export const ExpenseTable = () => {
                 <TableCell>{item.value}</TableCell>
                 <TableCell>{item.status ? "Pagado" : "Pendiente"}</TableCell>
 
-                <TableCell>{item.date}</TableCell>
+                <TableCell>{formatDate(item.date)}</TableCell>
                 <TableCell>
                   <div className="flex gap-2">
                     <Button size="sm" onPress={() => handleEdit(item.id)}>

@@ -1,11 +1,15 @@
+"use client";
+
 import * as yup from "yup";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 import { IAuth } from "../models/IUser";
 import { UseAccountStore } from "../context/useUserStore";
 
 export function useAuth() {
   const { login } = UseAccountStore();
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const initialValues: IAuth = {
     email: "",
@@ -13,8 +17,14 @@ export function useAuth() {
   };
 
   const handleSubmit = async (values: IAuth) => {
-    await login(values);
-    router.push("/dashboard");
+    setIsLoading(true);
+    try {
+      await login(values);
+      router.push("/dashboard");
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const validationSchema = yup.object().shape({
@@ -26,5 +36,11 @@ export function useAuth() {
     router.push("/signup");
   };
 
-  return { initialValues, handleSubmit, validationSchema, handleRegister };
+  return {
+    initialValues,
+    handleSubmit,
+    validationSchema,
+    handleRegister,
+    isLoading,
+  };
 }

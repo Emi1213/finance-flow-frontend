@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { useField, FieldHookConfig } from "formik";
 import { Autocomplete, AutocompleteItem } from "@nextui-org/autocomplete";
 
@@ -34,8 +34,6 @@ export const FMKAutocomplete: FC<FMKAutocompleteProps> = ({
       ),
     );
   };
-
-  console.log(field.value);
 
   return (
     <div className="w-full">

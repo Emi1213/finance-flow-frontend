@@ -8,15 +8,16 @@ import { ITotalExpense } from "../../models/IExpense";
 import { ExpenseDatasourceImpl } from "../../services/Datasource";
 
 export const TotalExpenseCard = ({
+  userId,
   year,
   month,
 }: {
+  userId: string;
   year: string;
   month: string;
 }) => {
   const [totalExpense, setTotalExpense] = useState<ITotalExpense | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const userId = "1";
 
   useEffect(() => {
     const fetchTotalExpenses = async () => {

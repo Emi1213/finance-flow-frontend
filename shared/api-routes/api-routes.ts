@@ -18,8 +18,8 @@ export const API_ROUTES = {
     GET_INCOMES: (userId: string, year: string, month: string) =>
       `/incomes/${userId}/${year}/${month}`,
     CREATE: "/incomes",
-    DELETE: "/incomes",
-    UPDATE: "/incomes",
+    DELETE: (id: number) => `/incomes/${id}`,
+    UPDATE: (id: number) => `/incomes/${id}`,
   },
   EXPENSE_TYPES: {
     GET_ALL: (userId: string) => `/type/expense/${userId}`,

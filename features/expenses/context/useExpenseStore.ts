@@ -23,7 +23,7 @@ export const useExpenseStore = create<StoreState>(
       setExpenses: (expenses: IExpense[]) => set({ expenses }),
       getAllExpenses: async () => {
         const expenses =
-          await ExpenseDatasourceImpl.getInstance().getExpenses("1");
+          await ExpenseDatasourceImpl.getInstance().getExpenses();
 
         set({ expenses });
       },

@@ -24,8 +24,6 @@ export class ExpenseTypeDatasourceImpl implements ExpenseTypeDatasource {
       API_ROUTES.EXPENSE_TYPES.GET_ALL(userId),
     );
 
-    console.log("data", data);
-
     return data;
   }
 

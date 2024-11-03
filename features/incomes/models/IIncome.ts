@@ -5,11 +5,17 @@ export interface IIncome {
   description: string;
   value: number;
   status: boolean;
-  typeId: IExpenseType;
+  type: IExpenseType;
   observation: string;
   userId: number;
-  date: string;
+  date: Date;
 }
+
+export interface ICreateIncome extends Omit<IIncome, "id" | "type"> {
+  typeId: number;
+}
+
+export interface IUpdateIncome extends Partial<ICreateIncome> {}
 
 export interface ITotalIncome {
   total: number;

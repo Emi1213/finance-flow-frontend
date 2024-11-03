@@ -8,7 +8,7 @@ export interface IExpense {
   type: IExpenseType;
   observation: string;
   userId: number;
-  date: string;
+  date: Date;
 }
 
 export interface ICreateExpense extends Omit<IExpense, "id" | "type"> {

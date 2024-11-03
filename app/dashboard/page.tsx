@@ -6,9 +6,12 @@ import MonthYearPicker from "@/shared/components/datapicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { TotalExpenseCard } from "@/features/expenses/presentation/components/total-expense";
 import { TotalIncomeCard } from "@/features/incomes/presentation/components/total-income";
+import { UseAccountStore } from "@/features/auth/context/useUserStore";
+import { TotalCard } from "@/features/total/presentation/components/total";
 
 const DashboardPage = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+  const userId = UseAccountStore((state) => state.user?.id.toString());
 
   const handleDateChange = (date: Date | null) => {
     setSelectedDate(date);
@@ -18,7 +21,7 @@ const DashboardPage = () => {
   const month = selectedDate ? (selectedDate.getMonth() + 1).toString() : "";
 
   return (
-    <div className="w-full ">
+    <div className="w-full">
       <div className="flex justify-center items-center">
         <MonthYearPicker
           initialDate={new Date()}
@@ -27,10 +30,14 @@ const DashboardPage = () => {
           onDateChange={handleDateChange}
         />
       </div>
-      <div className="p-6 flex  gap-10 w-ful">
-        <TotalIncomeCard month={month} year={year} />
-        <TotalExpenseCard month={month} year={year} />
-        <TotalIncomeCard month={month} year={year} />
+      <div className="p-6 flex gap-10 w-full">
+        {userId && (
+          <>
+            <TotalIncomeCard month={month} userId={userId} year={year} />
+            <TotalExpenseCard month={month} userId={userId} year={year} />
+            <TotalCard month={month} userId={userId} year={year} />
+          </>
+        )}
       </div>
     </div>
   );

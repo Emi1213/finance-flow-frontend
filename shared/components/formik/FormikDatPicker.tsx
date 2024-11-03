@@ -24,25 +24,32 @@ export const FMKDatePicker: React.FC<FMKDatePickerProps> = ({
 
   const stringToCalendarDate = (dateString: string | null): CalendarDate => {
     if (!dateString) return today(getLocalTimeZone());
-    try {
-      const date = new Date(dateString);
 
-      return new CalendarDate(
-        date.getFullYear(),
-        date.getMonth() + 1,
-        date.getDate() + 1,
-      );
-    } catch {
-      return today(getLocalTimeZone());
-    }
+    const date = new Date(dateString);
+    const userTimezoneOffset = date.getTimezoneOffset() * 60000;
+    const adjustedDate = new Date(date.getTime() + userTimezoneOffset);
+
+    return new CalendarDate(
+      adjustedDate.getFullYear(),
+      adjustedDate.getMonth() + 1,
+      adjustedDate.getDate(),
+    );
   };
+
+  const initialCalendarDate = stringToCalendarDate(field.value);
 
   const handleChange = (date: DateValue | null) => {
     if (date instanceof CalendarDate) {
-      const jsDate = date.toDate(getLocalTimeZone());
-      const isoString = jsDate.toISOString();
+      const month = String(date.month).padStart(2, "0");
+      const day = String(date.day).padStart(2, "0");
 
-      helpers.setValue(isoString);
+      const dateObj = new Date(date.year, parseInt(month) - 1, parseInt(day));
+      const userTimezoneOffset = dateObj.getTimezoneOffset() * 60000;
+      const adjustedDate = new Date(dateObj.getTime() - userTimezoneOffset);
+
+      const formattedDate = `${adjustedDate.toISOString().split(".")[0]}.000Z`;
+
+      helpers.setValue(formattedDate);
     } else {
       helpers.setValue("");
     }
@@ -54,8 +61,8 @@ export const FMKDatePicker: React.FC<FMKDatePickerProps> = ({
       <DatePicker
         showMonthAndYearPickers
         className="max-w-[284px]"
-        defaultValue={stringToCalendarDate(field.value)}
         label={label}
+        value={initialCalendarDate}
         onChange={handleChange}
       />
       {meta.touched && meta.error && (

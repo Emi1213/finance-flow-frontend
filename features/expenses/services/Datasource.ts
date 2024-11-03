@@ -7,10 +7,11 @@ import {
 
 import { AxiosClient } from "@/core/infraestructure/http/AxiosClient";
 import { HttpHandler } from "@/core/interfaces/HttpHandler";
+import { UseAccountStore } from "@/features/auth/context/useUserStore";
 import { API_ROUTES } from "@/shared/api-routes/api-routes";
 
 interface ExpenseDatasource {
-  getExpenses(userId: string): Promise<IExpense[]>;
+  getExpenses(): Promise<IExpense[]>;
   getTotalExpenses(
     userId: string,
     year: string,
@@ -32,7 +33,13 @@ export class ExpenseDatasourceImpl implements ExpenseDatasource {
     return new ExpenseDatasourceImpl();
   }
 
-  async getExpenses(userId: string): Promise<IExpense[]> {
+  async getExpenses(): Promise<IExpense[]> {
+    const userId = UseAccountStore.getState().user?.id.toString();
+
+    if (!userId) {
+      throw new Error("User not found");
+    }
+
     const data = await this.httpClient.get<IExpense[]>(
       API_ROUTES.EXPENSES.GET_ALL(userId),
     );

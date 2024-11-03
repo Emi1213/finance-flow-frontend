@@ -15,7 +15,7 @@ export function useExpensesForm(currentExpense?: IExpense) {
   const initialValues = {
     description: currentExpense?.description || "",
     value: currentExpense?.value || "",
-    date: currentExpense?.date || new Date().toISOString(),
+    date: currentExpense?.date || new Date(),
     status: currentExpense?.status ?? true,
     typeId: currentExpense?.type.id || null,
     observation: currentExpense?.observation || "",
@@ -24,7 +24,7 @@ export function useExpensesForm(currentExpense?: IExpense) {
   const validationSchema = yup.object().shape({
     description: yup.string().required("Description is required"),
     value: yup.number().required("Value is required"),
-    date: yup.string().required("Date is required"),
+    date: yup.date().required("Date is required"),
     status: yup.boolean().required("Status is required"),
     typeId: yup.number().required("Type is required"),
   });
@@ -47,12 +47,9 @@ export function useExpensesForm(currentExpense?: IExpense) {
     router.push(pathname.split("/").slice(0, -1).join("/"));
   };
 
-  const handleCreateCategory = async (name: string) => {};
-
   return {
     initialValues,
     validationSchema,
     handleSubmit,
-    handleCreateCategory,
   };
 }

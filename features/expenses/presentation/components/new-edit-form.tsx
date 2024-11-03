@@ -11,22 +11,18 @@ import { FMKInput } from "../../../../shared/components/formik/FormikInput";
 import { FMKSwitch } from "../../../../shared/components/formik/FormikSwitch";
 import { FMKTextArea } from "../../../../shared/components/formik/FormikTextArea";
 import { FMKDatePicker } from "../../../../shared/components/formik/FormikDatPicker";
+import { FMKSelect } from "../../../../shared/components/formik/FormikSelect";
 
-import { IExpenseType } from "@/features/expenses-types/models/IExpenseType";
 import { useExpenseTypeStore } from "@/features/expenses-types/context/useExpenseTypeStore";
-import { FMKAutocomplete } from "@/shared/components/formik/FormikAutocomplete";
+import { IExpenseType } from "@/features/expenses-types/models/IExpenseType";
 
 export const NewEditForm = ({
   currentExpense,
 }: {
   currentExpense?: IExpense;
 }) => {
-  const {
-    initialValues,
-    handleSubmit,
-    validationSchema,
-    handleCreateCategory,
-  } = useExpensesForm(currentExpense);
+  const { initialValues, handleSubmit, validationSchema } =
+    useExpensesForm(currentExpense);
 
   const { types, getAllTypes } = useExpenseTypeStore();
 
@@ -51,9 +47,8 @@ export const NewEditForm = ({
                   <FMKInput label="Valor" name="value" type="number" />
                   <FMKDatePicker label="Fecha" name="date" />
                 </div>
-
-                <FMKAutocomplete
-                  label="Tipo de gasto"
+                <FMKSelect
+                  label="Categoria"
                   name="typeId"
                   options={types.map((type: IExpenseType) => ({
                     label: type.name,

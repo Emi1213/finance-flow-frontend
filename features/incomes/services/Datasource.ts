@@ -1,19 +1,25 @@
-import { IIncome, ITotalIncome } from "../models/IIncome";
+import {
+  ICreateIncome,
+  IIncome,
+  ITotalIncome,
+  IUpdateIncome,
+} from "../models/IIncome";
 
 import { AxiosClient } from "@/core/infraestructure/http/AxiosClient";
 import { HttpHandler } from "@/core/interfaces/HttpHandler";
+import { UseAccountStore } from "@/features/auth/context/useUserStore";
 import { API_ROUTES } from "@/shared/api-routes/api-routes";
 
 interface IncomeDatasource {
-  getIncomes(userId: string): Promise<IIncome[]>;
+  getIncomes(): Promise<IIncome[]>;
   getTotalIncomes(
     userId: string,
     year: string,
     month: string,
   ): Promise<ITotalIncome>;
-  createIncome(income: IIncome): Promise<IIncome>;
-  updateIncome(income: IIncome): Promise<IIncome>;
-  deleteIncome(incomeId: number): Promise<void>;
+  createIncome(income: ICreateIncome): Promise<IIncome>;
+  updateIncome(id: number, income: IUpdateIncome): Promise<IIncome>;
+  deleteIncome(incomeId: number): Promise<boolean>;
 }
 
 export class IncomeDatasourceImpl implements IncomeDatasource {
@@ -27,32 +33,51 @@ export class IncomeDatasourceImpl implements IncomeDatasource {
     return new IncomeDatasourceImpl();
   }
 
-  getIncomes(userId: string): Promise<IIncome[]> {
-    const data = this.httplClient.get<IIncome[]>(
+  async getIncomes(): Promise<IIncome[]> {
+    const userId = UseAccountStore.getState().user?.id.toString();
+
+    if (!userId) {
+      throw new Error("User not found");
+    }
+
+    const data = await this.httplClient.get<IIncome[]>(
       API_ROUTES.INCOMES.GET_ALL(userId),
     );
 
     return data;
   }
 
-  getTotalIncomes(
+  async getTotalIncomes(
     userId: string,
     year: string,
     month: string,
   ): Promise<ITotalIncome> {
-    const data = this.httplClient.get<ITotalIncome>(
+    const data = await this.httplClient.get<ITotalIncome>(
       API_ROUTES.INCOMES.GET_INCOMES(userId, year, month),
     );
 
     return data;
   }
-  createIncome(income: IIncome): Promise<IIncome> {
-    throw new Error("Method not implemented.");
+
+  async createIncome(income: ICreateIncome): Promise<IIncome> {
+    const data = await this.httplClient.post<IIncome>(
+      API_ROUTES.INCOMES.CREATE,
+      income,
+    );
+
+    return data;
   }
-  updateIncome(income: IIncome): Promise<IIncome> {
-    throw new Error("Method not implemented.");
+
+  async updateIncome(id: number, income: IUpdateIncome): Promise<IIncome> {
+    const data = await this.httplClient.put<IIncome>(
+      API_ROUTES.INCOMES.UPDATE(id),
+      income,
+    );
+
+    return data;
   }
-  deleteIncome(incomeId: number): Promise<void> {
-    throw new Error("Method not implemented.");
+
+  async deleteIncome(incomeId: number): Promise<boolean> {
+    return await this.httplClient.delete(API_ROUTES.INCOMES.DELETE(incomeId));
   }
 }
