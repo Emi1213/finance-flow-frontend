@@ -3,12 +3,18 @@
 import { Card } from "@nextui-org/card";
 import { Form, Formik } from "formik";
 import { Button } from "@nextui-org/button";
+import { useEffect } from "react";
 
 import { IExpense } from "../../models/IExpense";
 import { useExpensesForm } from "../../hooks/use-expenses-form";
 import { FMKInput } from "../../../../shared/components/formik/FormikInput";
 import { FMKSwitch } from "../../../../shared/components/formik/FormikSwitch";
 import { FMKTextArea } from "../../../../shared/components/formik/FormikTextArea";
+import { FMKDatePicker } from "../../../../shared/components/formik/FormikDatPicker";
+
+import { IExpenseType } from "@/features/expenses-types/models/IExpenseType";
+import { useExpenseTypeStore } from "@/features/expenses-types/context/useExpenseTypeStore";
+import { FMKAutocomplete } from "@/shared/components/formik/FormikAutocomplete";
 
 export const NewEditForm = ({
   currentExpense,
@@ -21,6 +27,12 @@ export const NewEditForm = ({
     validationSchema,
     handleCreateCategory,
   } = useExpensesForm(currentExpense);
+
+  const { types, getAllTypes } = useExpenseTypeStore();
+
+  useEffect(() => {
+    getAllTypes();
+  }, []);
 
   return (
     <div className="m-4">
@@ -37,14 +49,17 @@ export const NewEditForm = ({
                 <FMKInput label="Descripción" name="description" />
                 <div className="flex gap-10">
                   <FMKInput label="Valor" name="value" type="number" />
-                  <FMKInput label="Fecha" name="date" type="date" />
+                  <FMKDatePicker label="Fecha" name="date" />
                 </div>
-                {/* <FMKSelect
-                label="Tipo"
-                name="type"
-                options={types}
-                onCreateCategory={handleCreateCategory}
-              /> */}
+
+                <FMKAutocomplete
+                  label="Tipo de gasto"
+                  name="typeId"
+                  options={types.map((type: IExpenseType) => ({
+                    label: type.name,
+                    value: type.id,
+                  }))}
+                />
                 <FMKSwitch label="Pagado" name="status" />
                 <FMKTextArea label="Observación" name="observation" />
 

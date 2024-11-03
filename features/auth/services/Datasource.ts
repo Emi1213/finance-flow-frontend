@@ -1,6 +1,7 @@
 import { IAuth, IUserResponse } from "../models/IUser";
 import { IApiUser } from "../models/IApiUser";
 import { UserAdapter } from "../adapters/UserAdapter";
+import { ISignUp } from "../models/ISignUp";
 
 import { HttpHandler } from "@/core/interfaces/HttpHandler";
 import { AxiosClient } from "@/core/infraestructure/http/AxiosClient";
@@ -12,6 +13,7 @@ import {
 
 interface UserDatasource {
   login(credentials: IAuth): Promise<IUserResponse>;
+  register(credentials: ISignUp): Promise<IUserResponse>;
 }
 
 export class UserDatasourceImpl implements UserDatasource {
@@ -31,7 +33,16 @@ export class UserDatasourceImpl implements UserDatasource {
       credentials,
     );
 
-    console.log(API_ROUTES.AUTH.LOGIN);
+    data.token && (await setCookie(ACCESS_TOKEN_COOKIE_NAME, data.token));
+
+    return UserAdapter.toDomain(data);
+  }
+
+  async register(credentials: ISignUp): Promise<IUserResponse> {
+    const data = await this.httpClient.post<IApiUser>(
+      API_ROUTES.AUTH.REGISTER,
+      credentials,
+    );
 
     data.token && (await setCookie(ACCESS_TOKEN_COOKIE_NAME, data.token));
 

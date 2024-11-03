@@ -15,8 +15,8 @@ export const FMKSwitch = ({ label, ...props }: FMKSwitchProps) => {
   return (
     <div className="flex items-center space-x-2">
       <Switch
-        checked={field.value}
         id={props.name}
+        isSelected={field.value}
         onChange={(e) => helpers.setValue(e.target.checked)}
       />
       <label htmlFor={props.name}>{label}</label>

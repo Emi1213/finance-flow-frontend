@@ -11,17 +11,18 @@ const appModules: IModule[] = [
   {
     name: "Dashboard",
     alias: "dashboard",
-    icon: "FaHome",
+  },
+  {
+    name: "Ingresos",
+    alias: "incomes",
   },
   {
     name: "Gastos",
     alias: "expenses",
-    icon: "FaHome",
   },
   {
     name: "Reportes",
     alias: "reports",
-    icon: "FaHome",
   },
 ];
 

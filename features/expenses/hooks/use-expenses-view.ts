@@ -9,16 +9,14 @@ export function useExpenseView() {
   const pathname = usePathname();
   const { expenses, getAllExpenses } = useExpenseStore();
   const [filterValue, setFilterValue] = useState("");
-  const [rowsPerPage] = useState(5);
+  const [rowsPerPage] = useState(7);
   const [page, setPage] = useState(1);
 
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
 
   useEffect(() => {
-    const userId = "1";
-
-    getAllExpenses(userId);
+    getAllExpenses();
   }, [getAllExpenses]);
 
   const filteredExpenses = useMemo(() => {

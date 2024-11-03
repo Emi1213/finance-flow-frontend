@@ -6,7 +6,8 @@ import {
   NavbarBrand,
 } from "@nextui-org/navbar";
 import NextLink from "next/link";
-import { Avatar } from "@nextui-org/avatar";
+
+import { UserSettings } from "./user-settings";
 
 import { ThemeSwitch } from "@/shared/components/theme-switch";
 
@@ -22,11 +23,7 @@ export const Navbar = () => {
       </NavbarContent>
       <NavbarContent className=" basis-1 pl-4" justify="end">
         <ThemeSwitch />
-        <Avatar
-          showFallback
-          size="sm"
-          src="https://images.unsplash.com/broken"
-        />
+        <UserSettings />
       </NavbarContent>
     </NextUINavbar>
   );

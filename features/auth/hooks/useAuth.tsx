@@ -22,5 +22,9 @@ export function useAuth() {
     password: yup.string().required("La contraseña es requerida"),
   });
 
-  return { initialValues, handleSubmit, validationSchema };
+  const handleRegister = () => {
+    router.push("/signup");
+  };
+
+  return { initialValues, handleSubmit, validationSchema, handleRegister };
 }

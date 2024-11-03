@@ -7,7 +7,7 @@ import { ExpenseDatasourceImpl } from "../services/Datasource";
 interface StoreState {
   expenses: IExpense[];
   setExpenses: (expenses: IExpense[]) => void;
-  getAllExpenses: (userId: string) => Promise<void>;
+  getAllExpenses: () => Promise<void>;
   deleteExpense: (id: number) => Promise<void>;
   createExpense: (expense: ICreateExpense) => Promise<void>;
   updateExpense: (id: number, expense: IUpdateExpense) => Promise<void>;
@@ -21,9 +21,9 @@ export const useExpenseStore = create<StoreState>(
     (set, get) => ({
       expenses: DEFAULT_EXPENSES,
       setExpenses: (expenses: IExpense[]) => set({ expenses }),
-      getAllExpenses: async (userId: string) => {
+      getAllExpenses: async () => {
         const expenses =
-          await ExpenseDatasourceImpl.getInstance().getExpenses(userId);
+          await ExpenseDatasourceImpl.getInstance().getExpenses("1");
 
         set({ expenses });
       },
@@ -32,7 +32,7 @@ export const useExpenseStore = create<StoreState>(
           await ExpenseDatasourceImpl.getInstance().deleteExpense(id);
 
         if (isDeleted) {
-          get().getAllExpenses("1");
+          get().getAllExpenses();
         }
       },
       createExpense: async (expense: ICreateExpense) => {

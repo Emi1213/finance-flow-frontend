@@ -1,9 +1,8 @@
 "use client";
-
 import { Card } from "@nextui-org/card";
 
-import { LoginForm } from "../components/login-form";
-export const LoginView = () => {
+import { SignUpForm } from "../components/signup-form";
+export const SignUpView = () => {
   return (
     <div className="h-full">
       <Card className="h-full py-8 mx-11">
@@ -21,11 +20,13 @@ export const LoginView = () => {
             </div>
           </div>
           <div className="flex flex-col w-1/2 pr-10 ">
-            <div className="flex justify-center h-1/4 pt-9">
-              <h2 className="text-4xl text-center font-bold">Iniciar sesión</h2>
+            <div className="flex justify-center h-1/4 pt-4">
+              <h2 className="text-4xl text-center font-bold">
+                Registrate Ahora
+              </h2>
             </div>
-            <div className="flex justify-center items-center h-3/5 pb-4 w-full px-24">
-              <LoginForm />
+            <div className="flex justify-center items-center h-3/5 pb-4 w-full px-16">
+              <SignUpForm />
             </div>
           </div>
         </div>

@@ -1,13 +1,17 @@
 "use client";
 
-import { ExpenseTable } from "../components/table-manager";
-import { TableBreadcrumb } from "../components/table-breadcrumb";
+import { EditBreadcrumb } from "../components/edit-breadcrumb";
+import { NewEditForm } from "../components/new-edit-form";
+import { useExpenseStore } from "../../context/useExpenseStore";
 
-export const ExpensesEditView = () => {
+export const ExpensesEditView = ({ id }: { id: number }) => {
+  const { expenses } = useExpenseStore();
+  const currentExpense = expenses.find((expense) => expense.id === id);
+
   return (
     <div>
-      <TableBreadcrumb />
-      <ExpenseTable />
+      <EditBreadcrumb />
+      <NewEditForm currentExpense={currentExpense} />
     </div>
   );
 };

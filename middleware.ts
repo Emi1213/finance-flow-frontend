@@ -7,6 +7,7 @@ export const config = {
     "/((?!api|_next/static|_next/image|favicon.ico).*)",
     "/",
     "/login",
+    "/signup",
     "/dashboard/:slug",
   ],
 };
@@ -17,9 +18,10 @@ export const middleware = async (request: NextRequest) => {
     request.cookies.get(ACCESS_TOKEN_COOKIE_NAME)?.value !== "null";
 
   const isLoginPage = request.nextUrl.pathname.startsWith("/login");
+  const isSignupPage = request.nextUrl.pathname.startsWith("/signup");
   const isRootPage = request.nextUrl.pathname === "/";
 
-  if (!hasAccessToken && !isLoginPage) {
+  if (!hasAccessToken && !(isLoginPage || isSignupPage)) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 

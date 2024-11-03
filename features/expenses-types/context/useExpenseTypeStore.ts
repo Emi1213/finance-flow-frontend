@@ -7,7 +7,7 @@ import { ExpenseTypeDatasourceImpl } from "../services/Datasource";
 interface StoreState {
   types: IExpenseType[];
   setTypes: (types: IExpenseType[]) => void;
-  getAllTypes: (userId: string) => Promise<void>;
+  getAllTypes: () => Promise<void>;
   addType: (type: ICreateExpenseType) => Promise<void>;
 }
 
@@ -19,9 +19,9 @@ export const useExpenseTypeStore = create<StoreState>(
     (set) => ({
       types: DEFAULT_TYPES,
       setTypes: (types: IExpenseType[]) => set({ types }),
-      getAllTypes: async (userId: string) => {
+      getAllTypes: async () => {
         const types =
-          await ExpenseTypeDatasourceImpl.getInstance().getExpenseTypes(userId);
+          await ExpenseTypeDatasourceImpl.getInstance().getExpenseTypes("1");
 
         set({ types });
       },

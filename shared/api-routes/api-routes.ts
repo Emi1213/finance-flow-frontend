@@ -3,7 +3,7 @@ export const ACCESS_TOKEN_COOKIE_NAME = "access_token";
 export const API_ROUTES = {
   AUTH: {
     LOGIN: "/auth/login",
-    LOGOUT: "/auth/logout",
+    REGISTER: "/auth/signup",
   },
   EXPENSES: {
     GET_ALL: (userId: string) => `/expenses/${userId}`,

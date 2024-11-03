@@ -61,7 +61,7 @@ export class ExpenseDatasourceImpl implements ExpenseDatasource {
   }
 
   async updateExpense(id: number, expense: IUpdateExpense): Promise<IExpense> {
-    const data = await this.httpClient.put<IExpense>(
+    const data = await this.httpClient.patch<IExpense>(
       API_ROUTES.EXPENSES.UPDATE(id),
       expense,
     );

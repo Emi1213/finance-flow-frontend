@@ -4,7 +4,10 @@ import * as yup from "yup";
 import { useExpenseStore } from "../context/useExpenseStore";
 import { ICreateExpense, IExpense, IUpdateExpense } from "../models/IExpense";
 
+import { UseAccountStore } from "@/features/auth/context/useUserStore";
+
 export function useExpensesForm(currentExpense?: IExpense) {
+  const user = UseAccountStore((state) => state.user);
   const { createExpense, updateExpense } = useExpenseStore();
   const router = useRouter();
   const pathname = usePathname();
@@ -12,9 +15,9 @@ export function useExpensesForm(currentExpense?: IExpense) {
   const initialValues = {
     description: currentExpense?.description || "",
     value: currentExpense?.value || "",
-    date: currentExpense?.date || "",
-    status: currentExpense?.status || false,
-    typeId: currentExpense?.type.id || undefined,
+    date: currentExpense?.date || new Date().toISOString(),
+    status: currentExpense?.status ?? true,
+    typeId: currentExpense?.type.id || null,
     observation: currentExpense?.observation || "",
   };
 
@@ -30,6 +33,7 @@ export function useExpensesForm(currentExpense?: IExpense) {
     const formattedData = {
       ...data,
       typeId: Number(data.typeId),
+      userId: user?.id ?? 1,
     };
 
     if (currentExpense) {
@@ -43,9 +47,7 @@ export function useExpensesForm(currentExpense?: IExpense) {
     router.push(pathname.split("/").slice(0, -1).join("/"));
   };
 
-  const handleCreateCategory = async (name: string) => {
-    
-  };
+  const handleCreateCategory = async (name: string) => {};
 
   return {
     initialValues,
