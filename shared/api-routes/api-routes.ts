@@ -25,6 +25,10 @@ export const API_ROUTES = {
     GET_ALL: (userId: string) => `/type/expense/${userId}`,
     CREATE: "/expense-types",
   },
+  INCOME_TYPES: {
+    GET_ALL: (userId: string) => `/type/income/${userId}`,
+    CREATE: "/income-types",
+  },
   TOTAL: {
     GET_TOTAL: (userId: string, year: string, month: string) =>
       `/total/${userId}/${year}/${month}`,

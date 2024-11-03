@@ -14,10 +14,10 @@ import { Chip } from "@nextui-org/chip";
 import { Tooltip } from "@nextui-org/tooltip";
 
 import { TableFilters } from "../../../../shared/components/table-filters";
+import { useIncomeView } from "../../hooks/use-incomes-view";
+import { IIncome } from "../../models/IIncome";
 
-import { useExpenseView } from "@/features/expenses/hooks/use-expenses-view";
 import { IColumn } from "@/shared/interfaces/IColumn";
-import { IExpense } from "@/features/expenses/models/IExpense";
 
 const INITIAL_VISIBLE_COLUMNS: IColumn[] = [
   { uid: "description", name: "Description" },
@@ -28,7 +28,7 @@ const INITIAL_VISIBLE_COLUMNS: IColumn[] = [
   { uid: "actions", name: "Actions" },
 ];
 
-export const ExpenseTable = () => {
+export const IncomeTable = () => {
   const formatDate = (date: Date) => {
     const utcDate = new Date(date);
 
@@ -48,7 +48,7 @@ export const ExpenseTable = () => {
     handleEdit,
     handleAdd,
     handleMonthYearChange,
-  } = useExpenseView();
+  } = useIncomeView();
 
   return (
     <div className="w-full">
@@ -66,7 +66,7 @@ export const ExpenseTable = () => {
         </div>
         <div className="">
           <Button color="primary" onPress={handleAdd}>
-            Nuevo Gasto
+            Nuevo Ingreso
           </Button>
         </div>
       </div>
@@ -79,8 +79,8 @@ export const ExpenseTable = () => {
               </TableColumn>
             )}
           </TableHeader>
-          <TableBody emptyContent="No expenses content data" items={items}>
-            {(item: IExpense) => (
+          <TableBody emptyContent="No incomes content data" items={items}>
+            {(item: IIncome) => (
               <TableRow key={item.id}>
                 <TableCell>
                   <Tooltip content={item.observation}>

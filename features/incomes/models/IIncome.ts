@@ -1,11 +1,11 @@
-import { IExpenseType } from "@/features/expenses-types/models/IExpenseType";
+import { IIncomeType } from "@/features/incomes-types/models/IIncomeType";
 
 export interface IIncome {
   id: number;
   description: string;
   value: number;
   status: boolean;
-  type: IExpenseType;
+  type: IIncomeType;
   observation: string;
   userId: number;
   date: Date;

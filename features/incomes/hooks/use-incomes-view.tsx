@@ -1,13 +1,17 @@
-import { useRouter, usePathname } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+"use client";
 
-import { useExpenseStore } from "../context/useExpenseStore";
-import { IExpense } from "../models/IExpense";
+import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { useEffect, useState, useMemo } from "react";
 
-export function useExpenseView() {
+import { useIncomeStore } from "../context/useIncomeStore";
+import { IIncome } from "../models/IIncome";
+
+export function useIncomeView() {
   const router = useRouter();
   const pathname = usePathname();
-  const { expenses, getAllExpenses, deleteExpense } = useExpenseStore();
+  const { deleteIncome, incomes, getAllIncomes } = useIncomeStore();
+
   const [filterValue, setFilterValue] = useState("");
   const [rowsPerPage] = useState(7);
   const [page, setPage] = useState(1);
@@ -16,11 +20,11 @@ export function useExpenseView() {
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
 
   useEffect(() => {
-    getAllExpenses();
-  }, [getAllExpenses]);
+    getAllIncomes();
+  }, [getAllIncomes]);
 
   const filteredExpenses = useMemo(() => {
-    return expenses.filter((expense: IExpense) => {
+    return incomes.filter((expense: IIncome) => {
       const matchesSearch = expense.description
         .toLowerCase()
         .includes(filterValue.toLowerCase());
@@ -31,7 +35,7 @@ export function useExpenseView() {
 
       return matchesSearch && matchesMonth && matchesYear;
     });
-  }, [expenses, filterValue, selectedMonth, selectedYear]);
+  }, [incomes, filterValue, selectedMonth, selectedYear]);
 
   const pages = Math.ceil(filteredExpenses.length / rowsPerPage);
   const items = useMemo(() => {
@@ -41,7 +45,7 @@ export function useExpenseView() {
   }, [page, filteredExpenses, rowsPerPage]);
 
   const handleDelete = async (id: number) => {
-    await deleteExpense(id);
+    await deleteIncome(id);
   };
 
   const handleEdit = (id: number) => {
@@ -65,11 +69,11 @@ export function useExpenseView() {
 
   return {
     items,
-    pages,
     filterValue,
     setFilterValue,
     page,
     setPage,
+    pages,
     handleDelete,
     handleEdit,
     handleAdd,

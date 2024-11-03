@@ -3,6 +3,7 @@
 import { Card, CardBody, CardHeader } from "@nextui-org/card";
 import { useEffect, useState } from "react";
 import { FaBalanceScale } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 import { TotalDatasourceImpl } from "../../services/Datasource";
 import { ITotal } from "../../models/ITotal";
@@ -31,7 +32,7 @@ export const TotalCard = ({
 
         setTotal(total);
       } catch (error) {
-        console.error("Error fetching total incomes", error);
+        toast.error("Error fetching total" + error);
       } finally {
         setLoading(false);
       }
