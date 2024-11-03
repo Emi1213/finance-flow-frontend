@@ -1,6 +1,7 @@
 import {
   ICreateIncome,
   IIncome,
+  IIncomeCategoryReport,
   ITotalIncome,
   IUpdateIncome,
 } from "../models/IIncome";
@@ -20,6 +21,11 @@ interface IncomeDatasource {
   createIncome(income: ICreateIncome): Promise<IIncome>;
   updateIncome(id: number, income: IUpdateIncome): Promise<IIncome>;
   deleteIncome(incomeId: number): Promise<boolean>;
+  getIncomeById(
+    userId: string,
+    year: string,
+    month: string,
+  ): Promise<IIncomeCategoryReport[]>;
 }
 
 export class IncomeDatasourceImpl implements IncomeDatasource {
@@ -69,7 +75,7 @@ export class IncomeDatasourceImpl implements IncomeDatasource {
   }
 
   async updateIncome(id: number, income: IUpdateIncome): Promise<IIncome> {
-    const data = await this.httplClient.put<IIncome>(
+    const data = await this.httplClient.patch<IIncome>(
       API_ROUTES.INCOMES.UPDATE(id),
       income,
     );
@@ -79,5 +85,19 @@ export class IncomeDatasourceImpl implements IncomeDatasource {
 
   async deleteIncome(incomeId: number): Promise<boolean> {
     return await this.httplClient.delete(API_ROUTES.INCOMES.DELETE(incomeId));
+  }
+
+  async getIncomeById(
+    userId: string,
+    year: string,
+    month: string,
+  ): Promise<IIncomeCategoryReport[]> {
+    const data = await this.httplClient.get<IIncomeCategoryReport[]>(
+      API_ROUTES.REPORTS.GET_CATEGORY_REPORT_INCOME(userId, year, month),
+    );
+
+    console.log(data);
+
+    return data;
   }
 }

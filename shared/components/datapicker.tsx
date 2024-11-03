@@ -15,8 +15,8 @@ interface MonthYearPickerProps {
 const MonthYearPicker: React.FC<MonthYearPickerProps> = ({
   initialDate = new Date(),
   onDateChange,
-  minYear = 1900,
-  maxYear = 2024,
+  minYear = 2015,
+  maxYear = 2030,
 }) => {
   const [date, setDate] = useState<Date>(initialDate);
   const [isOpen, setIsOpen] = useState<boolean>(false);

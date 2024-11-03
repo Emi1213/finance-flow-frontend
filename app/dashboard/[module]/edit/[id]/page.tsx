@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import { FC } from "react";
 
 import { ExpensesEditView } from "@/features/expenses/presentation/views/expenses-edit-view";
+import { IncomesEditView } from "@/features/incomes/presentation/views/incomes-edit-view";
 
 interface EditViewProps {
   id: number;
@@ -14,7 +15,7 @@ const Page = () => {
 
   const AvaliableEditViews: Record<string, FC<EditViewProps>> = {
     expenses: ExpensesEditView,
-    incomes: ExpensesEditView,
+    incomes: IncomesEditView,
     reports: ExpensesEditView,
   };
 

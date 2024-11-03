@@ -33,4 +33,13 @@ export const API_ROUTES = {
     GET_TOTAL: (userId: string, year: string, month: string) =>
       `/total/${userId}/${year}/${month}`,
   },
+  REPORTS: {
+    GET_CATEGORY_REPORT_INCOME: (userId: string, year: string, month: string) =>
+      `/incomes/report/${userId}/${year}/${month}`,
+    GET_CATEGORY_REPORT_EXPENSE: (
+      userId: string,
+      year: string,
+      month: string,
+    ) => `/expenses/report/${userId}/${year}/${month}`,
+  },
 };

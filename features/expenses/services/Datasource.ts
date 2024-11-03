@@ -1,6 +1,7 @@
 import {
   ICreateExpense,
   IExpense,
+  IExpenseCategoryReport,
   ITotalExpense,
   IUpdateExpense,
 } from "../models/IExpense";
@@ -20,6 +21,11 @@ interface ExpenseDatasource {
   createExpense(expense: ICreateExpense): Promise<IExpense>;
   updateExpense(id: number, expense: IUpdateExpense): Promise<IExpense>;
   deleteExpense(expenseId: number): Promise<boolean>;
+  getExpenseById(
+    userId: string,
+    year: string,
+    month: string,
+  ): Promise<IExpenseCategoryReport[]>;
 }
 
 export class ExpenseDatasourceImpl implements ExpenseDatasource {
@@ -78,5 +84,17 @@ export class ExpenseDatasourceImpl implements ExpenseDatasource {
 
   async deleteExpense(expenseId: number): Promise<boolean> {
     return await this.httpClient.delete(API_ROUTES.EXPENSES.DELETE(expenseId));
+  }
+
+  async getExpenseById(
+    userId: string,
+    year: string,
+    month: string,
+  ): Promise<IExpenseCategoryReport[]> {
+    const data = await this.httpClient.get<IExpenseCategoryReport[]>(
+      API_ROUTES.REPORTS.GET_CATEGORY_REPORT_EXPENSE(userId, year, month),
+    );
+
+    return data;
   }
 }

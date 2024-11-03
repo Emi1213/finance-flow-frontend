@@ -20,3 +20,8 @@ export interface IUpdateExpense extends Partial<ICreateExpense> {}
 export interface ITotalExpense {
   total: number;
 }
+
+export interface IExpenseCategoryReport {
+  type: IExpenseType;
+  total: number;
+}

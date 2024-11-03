@@ -83,7 +83,16 @@ export const ExpenseTable = () => {
             {(item: IExpense) => (
               <TableRow key={item.id}>
                 <TableCell>
-                  <Tooltip content={item.observation}>
+                  <Tooltip
+                    content={
+                      <div className="px-1 py-2">
+                        <div className="text-small font-bold">Observación</div>
+                        <div className="text-tiny">
+                          {item.observation || "Sin observación"}
+                        </div>
+                      </div>
+                    }
+                  >
                     <Button variant="light">{item.description}</Button>
                   </Tooltip>
                 </TableCell>

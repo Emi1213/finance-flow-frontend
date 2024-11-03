@@ -20,3 +20,8 @@ export interface IUpdateIncome extends Partial<ICreateIncome> {}
 export interface ITotalIncome {
   total: number;
 }
+
+export interface IIncomeCategoryReport {
+  type: IIncomeType;
+  total: number;
+}

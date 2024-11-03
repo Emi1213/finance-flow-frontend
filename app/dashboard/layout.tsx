@@ -35,7 +35,7 @@ const layout: React.FC<LayoutProps> = ({ children }) => {
           <Sidebar modules={appModules} />
         </div>
         <div className="w-full">
-          <main className="p-11 h-full w-full ">{children}</main>
+          <main className="p-6 h-full w-full ">{children}</main>
         </div>
       </div>
     </div>
