@@ -21,8 +21,8 @@ const appModules: IModule[] = [
     alias: "expenses",
   },
   {
-    name: "Reportes",
-    alias: "reports",
+    name: "Metas de ahorro",
+    alias: "goals",
   },
 ];
 

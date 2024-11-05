@@ -30,9 +30,6 @@ export const UserSettings = () => {
         </Button>
       </DropdownTrigger>
       <DropdownMenu aria-label="Static Actions">
-        <DropdownItem key="profile" onClick={handleProfile}>
-          Perfil
-        </DropdownItem>
         <DropdownItem
           key="delete"
           className="text-danger"

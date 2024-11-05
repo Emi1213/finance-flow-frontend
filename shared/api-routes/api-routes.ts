@@ -42,4 +42,10 @@ export const API_ROUTES = {
       month: string,
     ) => `/expenses/report/${userId}/${year}/${month}`,
   },
+  GOALS: {
+    GET_ALL: (userId: string) => `/goals/${userId}`,
+    CREATE: "/goals",
+    DELETE: (id: number) => `/goals/${id}`,
+    UPDATE: (id: number) => `/goals/${id}`,
+  },
 };

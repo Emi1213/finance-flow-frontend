@@ -6,18 +6,29 @@ interface FMKInputProps {
   label: string;
   name: string;
   type?: string;
+  disabled?: boolean;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const FMKInput: React.FC<FMKInputProps> = ({
   label,
   type,
+  onChange,
   ...props
 }) => {
   const [field, meta] = useField(props as FieldHookConfig<any>);
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    field.onChange(e);
+    if (onChange) {
+      onChange(e);
+    }
+  };
+
   return (
-    <div className="w-full ">
+    <div className="w-full">
       <Input
+        disabled={props.disabled}
         label={label}
         {...field}
         {...props}
@@ -29,6 +40,7 @@ export const FMKInput: React.FC<FMKInputProps> = ({
         size="lg"
         type={type}
         validationState={meta.touched && meta.error ? "invalid" : "valid"}
+        onChange={handleChange}
       />
     </div>
   );

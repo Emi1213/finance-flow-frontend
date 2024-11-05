@@ -5,6 +5,7 @@ import { FC } from "react";
 
 import { ExpensesEditView } from "@/features/expenses/presentation/views/expenses-edit-view";
 import { IncomesEditView } from "@/features/incomes/presentation/views/incomes-edit-view";
+import { GoalsEditView } from "@/features/savings-goals/presentation/views/goals-edit-view";
 
 interface EditViewProps {
   id: number;
@@ -16,7 +17,7 @@ const Page = () => {
   const AvaliableEditViews: Record<string, FC<EditViewProps>> = {
     expenses: ExpensesEditView,
     incomes: IncomesEditView,
-    reports: ExpensesEditView,
+    goals: GoalsEditView,
   };
 
   const EditView = AvaliableEditViews[module];
