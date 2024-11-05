@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 
 import { IAuth, IUser } from "../models/IUser";
 import { UserDatasourceImpl } from "../services/Datasource";
+import { ISignUp } from "../models/ISignUp";
 
 import { deleteCookie } from "@/core/utils/CookiesUtil";
 import { ACCESS_TOKEN_COOKIE_NAME } from "@/shared/api-routes/api-routes";
@@ -13,6 +14,7 @@ interface StoreState {
   loading: boolean;
   login: (credentials: IAuth) => void;
   setUser: (user?: IUser) => void;
+  signUp: (credentials: ISignUp) => void;
   logout: () => void;
 }
 
@@ -27,8 +29,6 @@ export const UseAccountStore = create<StoreState>(
       loading: true,
       login: async (credentials: IAuth) => {
         const user = await UserDatasourceImpl.getInstance().login(credentials);
-
-        console.log(user);
 
         if (!user || !user.id) {
           toast.error("Algo salió mal, por favor intente nuevamente.");
@@ -49,8 +49,20 @@ export const UseAccountStore = create<StoreState>(
       },
       logout: async () => {
         await deleteCookie(ACCESS_TOKEN_COOKIE_NAME);
-        toast.success(`Hasta luego ${get().user?.name}!`);
+        toast.success(`Hasta luego ${get().user?.name as string}!`);
         set({ user: DEFAULT_USER, loading: false });
+      },
+      signUp: async (credentials: ISignUp) => {
+        const user =
+          await UserDatasourceImpl.getInstance().register(credentials);
+
+        if (!user || !user.id) {
+          toast.error("Algo salió mal, por favor intente nuevamente.");
+
+          return;
+        }
+        toast.success(`Bienvenid@ ${user.name}!`);
+        set({ user });
       },
     }),
     {
