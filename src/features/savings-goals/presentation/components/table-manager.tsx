@@ -11,19 +11,16 @@ import {
 import { Pagination } from "@nextui-org/pagination";
 import { Button } from "@nextui-org/button";
 import { Chip } from "@nextui-org/chip";
-import { Tooltip } from "@nextui-org/tooltip";
 
 import { TableFilters } from "../../../../shared/components/table-filters";
+import { IGoal } from "../../models/IGoal";
 
-import { useExpenseView } from "@/features/expenses/hooks/use-expenses-view";
+import { useGoalView } from "@/features/savings-goals/hooks/use-expenses-view";
 import { IColumn } from "@/shared/interfaces/IColumn";
-import { IExpense } from "@/features/expenses/models/IExpense";
 
 const INITIAL_VISIBLE_COLUMNS: IColumn[] = [
-  { uid: "description", name: "Description" },
   { uid: "value", name: "Value" },
   { uid: "status", name: "Status" },
-  { uid: "type", name: "Category  " },
   { uid: "date", name: "Fecha" },
   { uid: "actions", name: "Actions" },
 ];
@@ -48,7 +45,7 @@ export const ExpenseTable = () => {
     handleEdit,
     handleAdd,
     handleMonthYearChange,
-  } = useExpenseView();
+  } = useGoalView();
 
   return (
     <div className="w-full">
@@ -66,7 +63,7 @@ export const ExpenseTable = () => {
         </div>
         <div className="">
           <Button color="primary" onPress={handleAdd}>
-            Nuevo Gasto
+            Nueva meta
           </Button>
         </div>
       </div>
@@ -79,39 +76,20 @@ export const ExpenseTable = () => {
               </TableColumn>
             )}
           </TableHeader>
-          <TableBody emptyContent="No expenses content data" items={items}>
-            {(item: IExpense) => (
+          <TableBody emptyContent="No goals content data" items={items}>
+            {(item: IGoal) => (
               <TableRow key={item.id}>
-                <TableCell>
-                  <Tooltip
-                    content={
-                      <div className="px-1 py-2">
-                        <div className="text-small font-bold">Observación</div>
-                        <div className="text-tiny">
-                          {item.observation || "Sin observación"}
-                        </div>
-                      </div>
-                    }
-                  >
-                    <Button variant="light">{item.description}</Button>
-                  </Tooltip>
-                </TableCell>
                 <TableCell>{item.value}</TableCell>
                 <TableCell>
                   {item.status ? (
                     <Chip color="success" variant="dot">
-                      Pagado
+                      Cumplido
                     </Chip>
                   ) : (
                     <Chip color="warning" variant="dot">
-                      Pendiente
+                      Incompleto
                     </Chip>
                   )}
-                </TableCell>
-                <TableCell>
-                  <Chip color="primary" variant="bordered">
-                    {item.type.name}
-                  </Chip>
                 </TableCell>
                 <TableCell>{formatDate(item.date)}</TableCell>
                 <TableCell>
