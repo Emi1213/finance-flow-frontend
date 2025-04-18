@@ -7,6 +7,21 @@ import { useIncomeStore } from "../context/useIncomeStore";
 
 import { UseAccountStore } from "@/features/auth/context/useUserStore";
 
+/**
+ * Hook que gestiona el formulario de creación y edición de ingresos.
+ *
+ * - Define los valores iniciales del formulario con base en `currentIncome` (si existe).
+ * - Valida los campos usando Yup (requeridos: descripción, valor, fecha, estado, tipo).
+ * - Maneja el envío del formulario, diferenciando entre crear o actualizar ingresos.
+ * - Redirige al usuario al finalizar según el path actual.
+ *
+ * @param {IIncome} [currentIncome] - Objeto de ingreso actual (si se está editando).
+ * @returns {{
+ *   initialValues: Object,
+ *   validationSchema: yup.ObjectSchema,
+ *   handleSubmit: Function
+ * }}
+ */
 export function useIncomesForm(currentIncome?: IIncome) {
   const user = UseAccountStore((state) => state.user);
   const { createIncome, updateIncome } = useIncomeStore();
@@ -41,7 +56,6 @@ export function useIncomesForm(currentIncome?: IIncome) {
     if (currentIncome) {
       await updateIncome(currentIncome.id, formattedData as IUpdateIncome);
       router.push(pathname.split("/").slice(0, -2).join("/"));
-
       return;
     }
 
