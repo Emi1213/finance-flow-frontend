@@ -3,9 +3,9 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
   moduleNameMapper: {
-    '\\.(css|scss|sass)$': 'identity-obj-proxy'
+    '^@/(.*)$': '<rootDir>/$1', // ✅ Esto permite usar @/ como alias
+    '\\.(css|scss|sass)$': 'identity-obj-proxy',
   },
-  // comentamos o eliminamos la siguiente línea:
-  // setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
-  testPathIgnorePatterns: ['/node_modules/', '/.next/']
+  // setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'], // Puedes descomentarlo si lo necesitas más adelante
+  testPathIgnorePatterns: ['/node_modules/', '/.next/'],
 };
