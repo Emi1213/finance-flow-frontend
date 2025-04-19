@@ -46,6 +46,7 @@ describe("IncomeDatasourceImpl", () => {
     expect(result).toEqual(mockData);
   });
 
+
   it("debe crear un ingreso", async () => {
     const mockIncome = { description: "Extra", value: 200, date: new Date(), status: true, typeId: 1, observation: "", userId: 1 };
     postMock.mockResolvedValue(mockIncome);
@@ -56,6 +57,17 @@ describe("IncomeDatasourceImpl", () => {
     expect(result).toEqual(mockIncome);
   });
 
+  it("debe actualizar un ingreso", async () => {
+    const mockIncome = { description: "Actualización", value: 300 };
+    const updatedIncome = { id: 1, description: "Actualización", value: 300 };
+    patchMock.mockResolvedValue(updatedIncome);
+
+    const result = await service.updateIncome(1, mockIncome);
+
+    expect(patchMock).toHaveBeenCalledWith(API_ROUTES.INCOMES.UPDATE(1), mockIncome);
+    expect(result).toEqual(updatedIncome);
+  });
+
   it("debe eliminar un ingreso", async () => {
     deleteMock.mockResolvedValue(true);
 
@@ -63,5 +75,37 @@ describe("IncomeDatasourceImpl", () => {
 
     expect(deleteMock).toHaveBeenCalledWith(API_ROUTES.INCOMES.DELETE(5));
     expect(result).toBe(true);
+  });
+
+  it("debe obtener un reporte de ingresos por categoría", async () => {
+    const mockReport = [{ category: "Salario", total: 1000 }];
+    getMock.mockResolvedValue(mockReport);
+
+    const result = await service.getIncomeById("1", "2025", "04");
+
+    expect(getMock).toHaveBeenCalledWith(API_ROUTES.REPORTS.GET_CATEGORY_REPORT_INCOME("1", "2025", "04"));
+    expect(result).toEqual(mockReport);
+  });
+
+  it("debe manejar errores al obtener reporte de ingresos por categoría", async () => {
+    getMock.mockRejectedValueOnce(new Error("API Error"));
+
+    await expect(service.getIncomeById("1", "2025", "04")).rejects.toThrowError("API Error");
+  });
+
+  it("debe obtener el total de ingresos", async () => {
+    const totalIncome = { total: 5000 };
+    getMock.mockResolvedValue(totalIncome);
+
+    const result = await service.getTotalIncomes("1", "2025", "04");
+
+    expect(getMock).toHaveBeenCalledWith(API_ROUTES.INCOMES.GET_INCOMES("1", "2025", "04"));
+    expect(result).toEqual(totalIncome);
+  });
+
+  it("debe manejar errores al obtener el total de ingresos", async () => {
+    getMock.mockRejectedValueOnce(new Error("API Error"));
+
+    await expect(service.getTotalIncomes("1", "2025", "04")).rejects.toThrowError("API Error");
   });
 });
