@@ -36,7 +36,7 @@ describe("UseAccountStore", () => {
     jest.clearAllMocks();
   });
 
-  it("should login and set user if successful", async () => {
+  it("Debe iniciar sesión y configurar el usuario si tiene éxito", async () => {
     const mockUser: IUser = {
       id: 1,
       name: "Juan",
@@ -52,7 +52,7 @@ describe("UseAccountStore", () => {
     expect(mockSuccessToast).toHaveBeenCalledWith("Bienvenid@ Juan!");
   });
 
-  it("should show error toast if login fails", async () => {
+  it("Debería mostrar un mensaje de error si falla el inicio de sesión.", async () => {
     mockLogin.mockResolvedValue(undefined);
 
     await UseAccountStore.getState().login({ email: "fail@test.com", password: "wrong" });
@@ -61,7 +61,7 @@ describe("UseAccountStore", () => {
     expect(mockErrorToast).toHaveBeenCalledWith("Algo salió mal, por favor intente nuevamente.");
   });
 
-  it("should sign up and set user if successful", async () => {
+  it("Debe registrarse y configurar el usuario si tiene éxito.", async () => {
     const mockUser: IUser = {
       id: 2,
       name: "Maria",
@@ -83,7 +83,7 @@ describe("UseAccountStore", () => {
     expect(mockSuccessToast).toHaveBeenCalledWith("Bienvenid@ Maria!");
   });
 
-  it("should show error toast if sign up fails", async () => {
+  it("Debería mostrarse un mensaje de error si falla el registro.", async () => {
     mockRegister.mockResolvedValue(undefined);
 
     const credentials: ISignUp = {
@@ -99,7 +99,7 @@ describe("UseAccountStore", () => {
     expect(mockErrorToast).toHaveBeenCalledWith("Algo salió mal, por favor intente nuevamente.");
   });
 
-  it("should set user and loading", () => {
+  it("Debería configurar el usuario y la carga.", () => {
     const user: IUser = {
       id: 5,
       name: "Carlos",
@@ -113,7 +113,7 @@ describe("UseAccountStore", () => {
     expect(state.loading).toBe(false);
   });
 
-  it("should clear user on setUser(undefined)", () => {
+  it("Debería borrar el usuario en setUser(undefined)", () => {
     UseAccountStore.getState().setUser(undefined);
 
     const state = UseAccountStore.getState();

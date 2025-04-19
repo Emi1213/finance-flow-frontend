@@ -24,7 +24,7 @@ describe("useAuth", () => {
     jest.clearAllMocks();
   });
 
-  it("should handle login error", async () => {
+  it("Debería gestionar el error de inicio de sesión", async () => {
     const mockUser: IAuth = {
       email: "test@test.com",
       password: "wrongpassword",

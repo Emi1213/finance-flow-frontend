@@ -29,7 +29,7 @@ describe("useExpenseTypeStore", () => {
     jest.clearAllMocks();
   });
 
-  it("should fetch and set expense types", async () => {
+  it("Debe buscar y establecer los tipos de gastos", async () => {
     const mockGetExpenseTypes = jest.fn().mockResolvedValue(mockTypes);
 
     (ExpenseTypeDatasourceImpl.getInstance as jest.Mock).mockReturnValue({
@@ -45,7 +45,7 @@ describe("useExpenseTypeStore", () => {
     expect(useExpenseTypeStore.getState().types).toEqual(mockTypes);
   });
 
-  it("should call createExpenseType", async () => {
+  it("Debería llamar a createExpenseType", async () => {
     const mockCreateExpenseType = jest.fn().mockResolvedValue(undefined);
 
     (ExpenseTypeDatasourceImpl.getInstance as jest.Mock).mockReturnValue({

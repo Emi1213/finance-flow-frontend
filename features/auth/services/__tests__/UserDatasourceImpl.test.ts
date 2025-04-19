@@ -33,7 +33,7 @@ describe("UserDatasourceImpl", () => {
     jest.clearAllMocks();
   });
 
-  it("should call login and return a user response", async () => {
+  it("Debería llamar al inicio de sesión y devolver una respuesta del usuario", async () => {
     const mockPost = AxiosClient.getInstance().post as jest.Mock;
     mockPost.mockResolvedValue(mockApiUser);
 
@@ -46,7 +46,7 @@ describe("UserDatasourceImpl", () => {
     expect(result).toEqual(mockApiUser.user);
   });
 
-  it("should call register and return a user response", async () => {
+  it("Debería llamar al registro y devolver una respuesta del usuario", async () => {
     const mockPost = AxiosClient.getInstance().post as jest.Mock;
     mockPost.mockResolvedValue(mockApiUser);
 
@@ -59,7 +59,7 @@ describe("UserDatasourceImpl", () => {
     expect(result).toEqual(mockApiUser.user);
   });
 
-  it("should handle login errors", async () => {
+  it("Debería gestionar los errores de inicio de sesión", async () => {
     const errorMessage = "Login error";
     const mockPost = AxiosClient.getInstance().post as jest.Mock;
     mockPost.mockRejectedValue(new Error(errorMessage));
@@ -71,7 +71,7 @@ describe("UserDatasourceImpl", () => {
     expect(setCookie).not.toHaveBeenCalled();
   });
 
-  it("should handle register errors", async () => {
+  it("Debería manejar errores de registro", async () => {
     const errorMessage = "Register error";
     const mockPost = AxiosClient.getInstance().post as jest.Mock;
     mockPost.mockRejectedValue(new Error(errorMessage));
