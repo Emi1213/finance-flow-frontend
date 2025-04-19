@@ -5,6 +5,27 @@ import { useEffect, useState, useMemo } from "react";
 import { useIncomeStore } from "../context/useIncomeStore";
 import { IIncome } from "../models/IIncome";
 
+/**
+ * Hook que gestiona la visualización de ingresos.
+ *
+ * - Filtra los ingresos según la descripción, mes y año seleccionados.
+ * - Permite eliminar, editar y agregar ingresos.
+ * - Maneja la paginación de los ingresos mostrados.
+ * - Administra el filtro de búsqueda por descripción y la selección de mes y año.
+ *
+ * @returns {{
+ *   items: IIncome[], 
+ *   filterValue: string,
+ *   setFilterValue: Function,
+ *   page: number,
+ *   setPage: Function,
+ *   pages: number,
+ *   handleDelete: Function,
+ *   handleEdit: Function,
+ *   handleAdd: Function,
+ *   handleMonthYearChange: Function
+ * }}
+ */
 export function useIncomeView() {
   const router = useRouter();
   const pathname = usePathname();
