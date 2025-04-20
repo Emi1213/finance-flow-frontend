@@ -45,7 +45,7 @@ export function useSignUpForm() {
   // Esquema de validación para el formulario de registro
   const validationSchema = yup.object().shape({
     email: yup.string().email().required("El correo electrónico es requerido"),
-    password: yup.string().required("La contraseña es requerida"),
+    password: yup.string().min(6).required("La contraseña es requerida"),
     name: yup.string().required("El nombre es requerido"),
     lastname: yup.string().required("El apellido es requerido"),
   });

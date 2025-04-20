@@ -59,7 +59,7 @@ export function useAuth() {
   // Esquema de validación para el formulario de login
   const validationSchema = yup.object().shape({
     email: yup.string().required("El correo electrónico es requerido"),
-    password: yup.string().required("La contraseña es requerida"),
+    password: yup.string().min(6).required("La contraseña es requerida"),
   });
 
   /**
