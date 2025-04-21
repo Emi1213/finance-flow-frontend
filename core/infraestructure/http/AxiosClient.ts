@@ -9,8 +9,9 @@ import { ACCESS_TOKEN_COOKIE_NAME } from "@/shared/api-routes/api-routes";
 export class AxiosClient implements HttpHandler {
   private static instance: AxiosClient;
   private axiosInstance: AxiosInstance;
-  private static readonly baseUrl: string =
-    process.env.NEXT_PUBLIC_API_URL || "http://localhost:3004/api";
+  private static readonly baseUrl: string = (() => {
+    return process.env.NEXT_PUBLIC_API_URL || "http://localhost:3004/api";
+  })();
   private static accessToken: string | null = null;
 
   private constructor() {
